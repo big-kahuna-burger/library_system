@@ -1,0 +1,28 @@
+{
+  "name": "library_system",
+  "version": "0.0.1",
+  "description": "A project for the ITP2 course. Developed during the 2nd Semester of Bachelor's of CS @ Innopolis University. The team ASID consists of: Ahmed ElBatanony, Dragos Strugar, Iskender Guseynov & Danis Begishev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "library",
+    "management",
+    "system",
+    "books",
+    "book",
+    "computer",
+    "science",
+    "bachelor",
+    "node",
+    "javascript",
+    "express"
+  ],
+  "author": "ASID Team",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
