@@ -8,6 +8,7 @@ const session = require('express-session')
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
 const passport = require('passport')
+const bodyParser = require('body-parser')
 
 // Set up handlebars
 app.engine('.hbs', exphbs({
@@ -18,6 +19,9 @@ app.engine('.hbs', exphbs({
 
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, '../app/views'))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // If request is bad, return bad request
 app.use((err, request, response, next) => {
