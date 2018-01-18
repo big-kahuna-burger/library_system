@@ -2,10 +2,10 @@
   "name": "library_system",
   "version": "0.0.1",
   "description": "A project for the ITP2 course. Developed during the 2nd Semester of Bachelor's of CS @ Innopolis University. The team ASID consists of: Ahmed ElBatanony, Dragos Strugar, Iskender Guseynov & Danis Begishev",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "library",
@@ -23,10 +23,21 @@
   "author": "ASID Team",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "^1.18.2",
+    "connect-flash": "*",
+    "cookie-parser": "*",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
-    "hbs": "^4.0.1"
+    "express-messages": "*",
+    "express-session": "^1.15.6",
+    "express-validator": "*",
+    "hbs": "^4.0.1",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
   },
   "devDependencies": {
     "nodemon": "^1.14.11"
