@@ -1,9 +1,9 @@
 module.exports = function (app) {
-  app.get('/register', (req, res) => {
+  app.get('/users/register', (req, res) => {
     res.render('register')
   })
 
-  app.get('/login', (req, res) => {
+  app.get('/users/login', (req, res) => {
     res.render('login')
   })
 }
