@@ -1,3 +1,6 @@
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+
 const User = require('../../app/models/user')
 
 module.exports = function (app) {
@@ -15,7 +18,6 @@ module.exports = function (app) {
     const email = req.body.email
     const username = req.body.username
     const password = req.body.password
-    const password_confirm = req.body.password_confirm
 
     // Validate
     req.checkBody('name', 'Name is required').notEmpty()
@@ -49,5 +51,48 @@ module.exports = function (app) {
       req.flash('success_msg', 'You are registered and can now login')
       res.redirect('/users/login')
     }
+  })
+
+  // use passport for login
+  passport.use(new LocalStrategy(
+    function (username, password, done) {
+      User.getUserByUsername(username, (err, user) => {
+        if (err) throw err
+        if (!user) {
+          return done(null, false, { message: 'Unknown User' })
+        }
+
+        User.comparePassword(password, user.password, (err, isMatch) => {
+          if (err) throw err
+          if (isMatch) {
+            return done(null, user)
+          } else {
+            return done(null, false, { message: 'Invalid password' })
+          }
+        })
+      })
+    }
+  ))
+
+  passport.serializeUser(function (user, done) {
+    done(null, user.id)
+  })
+
+  passport.deserializeUser(function (id, done) {
+    User.getUserById(id, function (err, user) {
+      done(err, user)
+    })
+  })
+
+  app.post('/users/login',
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    (req, res) => {
+      res.redirect('/')
+    })
+
+  app.get('/users/logout', (req, res) => {
+    req.logout()
+    req.flash('success_msg', 'You are logged out.')
+    res.redirect('/users/login')
   })
 }

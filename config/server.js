@@ -1,14 +1,14 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const helpers = require('../helpers/server_helpers')
 const path = require('path')
 const exphbs = require('express-handlebars')
-const session = require('express-session')
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
 const passport = require('passport')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 
 // Set up handlebars
 app.engine('.hbs', exphbs({
@@ -22,6 +22,8 @@ app.set('views', path.join(__dirname, '../app/views'))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(cookieParser())
 
 // If request is bad, return bad request
 app.use((err, request, response, next) => {
@@ -37,7 +39,7 @@ app.use('*/images', express.static('public/img'))
 // session for users
 app.use(session({
   secret: 'secret',
-  saveUninitialized: true,
+  saveUninitialized: false,
   resave: true
 }))
 
@@ -67,12 +69,7 @@ app.use(expressValidator({
 app.use(flash())
 
 // Global Flash Messages
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg')
-  res.locals.error_msg = req.flash('error_msg')
-  res.locals.error = req.flash('error')
-  next()
-})
+app.use(require('../helpers/server_helpers'))
 
 // log when server starts
 app.listen(port, (err) => {

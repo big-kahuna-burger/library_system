@@ -1,7 +1,5 @@
 module.exports = function (app) {
-  app.get('/', (req, res) => {
-    res.render('index', {
-      name: 'Ahmed'
-    })
+  app.get('/', require('../../helpers/route_helpers'), (req, res) => {
+    res.render('index')
   })
 }
