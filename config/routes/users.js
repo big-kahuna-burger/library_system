@@ -1,3 +1,5 @@
+const User = require('../../app/models/user')
+
 module.exports = function (app) {
   app.get('/users/register', (req, res) => {
     res.render('register')
@@ -25,11 +27,27 @@ module.exports = function (app) {
 
     const errors = req.validationErrors()
     if (errors) {
-      console.log('there are errors')
+      res.render('register', {
+        errors: errors
+      })
     } else {
-      console.log('no errors')
-    }
+      const newUser = new User({
+        name: name,
+        email: email,
+        username: username,
+        password: password
+      })
 
-    res.send(email)
+      User.createUser(newUser, (err, user) => {
+        if (err) {
+          throw err
+        }
+
+        console.log(user)
+      })
+
+      req.flash('success_msg', 'You are registered and can now login')
+      res.redirect('/users/login')
+    }
   })
 }
