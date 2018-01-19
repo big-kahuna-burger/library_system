@@ -17,9 +17,26 @@
               <li role="presentation"><a href="/">Dashboard</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
             {{else}}
-              <li role="presentation"><a href="/users/login">Login</a></li>
-              <li role="presentation"><a href="/users/register">Register</a></li>
+              <li role="presentation"><a href="/users/login">User Login</a></li>
+              <li role="presentation"><a href="/users/register">User Register</a></li>
             {{/if}}
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                {{#if user}}
+                  <!-- nothing -->
+                {{else}}
+                  <li><a href="/librarians/register">Librarian Registration</a></li>
+                  <li><a href="/librarians/login">Librarian Login</a></li>
+                  <li role="separator" class="divider"></li>
+                {{/if}}
+                <li><a href="https://github.com/asid-team/library_system">GitHub Project</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="https://github.com/asid-team/library_system">Project Docs</a></li>
+              </ul>
+            </li>
+
           </ul>
         </nav>
         <h3 class="text-muted">Library Management</h3>

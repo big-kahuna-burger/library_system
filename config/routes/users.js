@@ -44,8 +44,6 @@ module.exports = function (app) {
         if (err) {
           throw err
         }
-
-        console.log(user)
       })
 
       req.flash('success_msg', 'You are registered and can now login')
@@ -53,26 +51,24 @@ module.exports = function (app) {
     }
   })
 
-  // use passport for login
-  passport.use(new LocalStrategy(
-    function (username, password, done) {
-      User.getUserByUsername(username, (err, user) => {
-        if (err) throw err
-        if (!user) {
-          return done(null, false, { message: 'Unknown User' })
-        }
+    // use passport for login
+  passport.use('user', new LocalStrategy(function (username, password, done) {
+    User.getUserByUsername(username, (err, user) => {
+      if (err) throw err
+      if (!user) {
+        return done(null, false, { message: 'Unknown User' })
+      }
 
-        User.comparePassword(password, user.password, (err, isMatch) => {
-          if (err) throw err
-          if (isMatch) {
-            return done(null, user)
-          } else {
-            return done(null, false, { message: 'Invalid password' })
-          }
-        })
+      User.comparePassword(password, user.password, (err, isMatch) => {
+        if (err) throw err
+        if (isMatch) {
+          return done(null, user)
+        } else {
+          return done(null, false, { message: 'Invalid password' })
+        }
       })
-    }
-  ))
+    })
+  }))
 
   passport.serializeUser(function (user, done) {
     done(null, user.id)
@@ -85,7 +81,7 @@ module.exports = function (app) {
   })
 
   app.post('/users/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    passport.authenticate('user', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
     (req, res) => {
       res.redirect('/')
     })

@@ -1,6 +1,6 @@
 {
   "name": "library_system",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A project for the ITP2 course. Developed during the 2nd Semester of Bachelor's of CS @ Innopolis University. The team ASID consists of: Ahmed ElBatanony, Dragos Strugar, Iskender Guseynov & Danis Begishev",
   "main": "app.js",
   "scripts": {

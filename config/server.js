@@ -39,7 +39,7 @@ app.use('*/images', express.static('public/img'))
 // session for users
 app.use(session({
   secret: 'secret',
-  saveUninitialized: false,
+  saveUninitialized: true,
   resave: true
 }))
 
@@ -80,8 +80,9 @@ app.listen(port, (err) => {
 })
 
 // use routes
-require('./routes/index')(app)
-require('./routes/users')(app)
+require('./routes/index')(app, passport)
+require('./routes/users')(app, passport)
+require('./routes/librarians')(app, passport)
 
 // export the app
 module.exports = app
